@@ -1,8 +1,11 @@
 const express = require("express");
 const multer = require("multer");
 const router = express.Router();
-const { handleBlogPost } = require("../controller/blog");
-const Blog = require("../models/blog");
+const {
+  handleBlogPost,
+  handleViewMoreBlog,
+  HandleBlogComment,
+} = require("../controller/blog");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -20,13 +23,9 @@ router.get("/", (req, res) => {
   res.render("blogs");
 });
 
-router.get("/:id", async (req, res) => {
-  const aboutBlog = await Blog.findById(req.params.id);
-  res.render("viewMore", {
-    aboutBlog,
-    user: req.user,
-  });
-});
+router.get("/:id", handleViewMoreBlog);
+
+router.post("/comment/:id", HandleBlogComment);
 
 router.post("/", upload.single("thumbnail"), handleBlogPost);
 

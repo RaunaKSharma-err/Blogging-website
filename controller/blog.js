@@ -1,14 +1,31 @@
 const Blog = require("../models/blog");
+const Comment = require("../models/comment");
 
 async function handleBlogPost(req, res) {
   const { title, description } = req.body;
-  const blog = await Blog.create({
+  await Blog.create({
     title,
     description,
     thumbnailUrl: `uploads/${req.file.filename}`,
     createdBy: req.user._id,
   });
-  res.redirect("/",);
+  res.redirect("/");
 }
 
-module.exports = { handleBlogPost };
+async function handleViewMoreBlog(req, res) {
+  const aboutBlog = await Blog.findById(req.params.id);
+  res.render("viewMore", {
+    aboutBlog,
+    user: req.user,
+  });
+}
+
+async function HandleBlogComment(req, res) {
+  // await Comment.create({
+  //   comment: req.body,
+  //   blogId: req.params.id,
+  //   createdBy:req.
+  // });
+}
+
+module.exports = { handleBlogPost, handleViewMoreBlog, HandleBlogComment };

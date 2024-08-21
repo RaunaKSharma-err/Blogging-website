@@ -13,14 +13,22 @@
             <h1 style="text-align: center; font-weight: bold; margin-top: 15px;">
                 <%= aboutBlog.title %>
             </h1>
-            <div>
-                <img src="<%= aboutBlog.thumbnailUrl %>" style="height: 300px; width: 500px; object-fit: cover;">
+            <div style="width: 100%; display: flex; justify-content: center;">
+                <img src="/<%= aboutBlog.thumbnailUrl %>"
+                    style="height: 350px; width: 70%; object-fit: cover; margin-top: 20px; margin-bottom: 20px;">
             </div>
             <p>
                 <%= aboutBlog.description %>
             </p>
 
         </div>
+
+        //comments
+
+        <div class="container mt-5">
+            <img src="" alt="">
+        </div>
+
 
         <%- include('./partials/script') %>
 </body>
