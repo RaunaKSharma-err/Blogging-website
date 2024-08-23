@@ -1,9 +1,11 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const { connectMongoDB } = require("./connection");
 
-connectMongoDB("mongodb://127.0.0.1:27017/BLOGEE").then((e) =>
+connectMongoDB(process.env.MONGO_URL).then((e) =>
   console.log("MongoDB connected")
 );
 
@@ -12,7 +14,7 @@ const blogRouter = require("./routes/blogs");
 const { checkForAuthenticatedUser } = require("./middlewares/authentication");
 
 const app = express();
-const PORT = 1000;
+const PORT = process.env.PORT || 8000;
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
