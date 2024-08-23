@@ -5,9 +5,9 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const { connectMongoDB } = require("./connection");
 
-connectMongoDB(process.env.MONGO_URL).then((e) =>
-  console.log("MongoDB connected")
-);
+connectMongoDB(
+  "mongodb+srv://Blogee:progritik1228@blogee.qlvbadv.mongodb.net/?retryWrites=true&w=majority&appName=Blogee"
+).then((e) => console.log("MongoDB connected"));
 
 const userRoutes = require("./routes/user");
 const blogRouter = require("./routes/blogs");
