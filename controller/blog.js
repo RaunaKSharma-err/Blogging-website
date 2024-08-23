@@ -13,19 +13,24 @@ async function handleBlogPost(req, res) {
 }
 
 async function handleViewMoreBlog(req, res) {
-  const aboutBlog = await Blog.findById(req.params.id);
+  const aboutBlog = await Blog.findById(req.params.id).populate("createdBy");
+  const comments = await Comment.find({ blogId: req.params.id }).populate(
+    "createdBy"
+  );
   res.render("viewMore", {
     aboutBlog,
     user: req.user,
+    comments,
   });
 }
 
 async function HandleBlogComment(req, res) {
-  // await Comment.create({
-  //   comment: req.body,
-  //   blogId: req.params.id,
-  //   createdBy:req.
-  // });
+  await Comment.create({
+    comment: req.body.comment,
+    blogId: req.params.id,
+    createdBy: req.user._id,
+  });
+  res.redirect(`/blog/${req.params.id}`);
 }
 
 module.exports = { handleBlogPost, handleViewMoreBlog, HandleBlogComment };
